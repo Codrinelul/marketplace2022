@@ -5,6 +5,7 @@ import Nav from "react-bootstrap/Nav";
 import LayoutOne from "../../layouts/LayoutOne";
 import Breadcrumb from "../../wrappers/breadcrumb/Breadcrumb";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default class LoginRegister extends Component {
   state = {};
@@ -17,19 +18,41 @@ export default class LoginRegister extends Component {
       email: this.email,
       password: this.password
     };
+
     axios.post('register', data).then(
       res => {
         localStorage.setItem('token', res.data.token)
         console.log(res)
         this.setState({
+          message: res.data.errors.email,
           message1: res.data.errors.firstname,
           message2: res.data.errors.lastname,
-          message: res.data.errors.email,
-          message3: res.data.errors.password
+          message3: res.data.errors.password,
+          message4: res.data.status
         })
 
+
+
         console.log(res.data.errors[0]);
+
       }
+    )
+
+
+
+
+  }
+  componentDidMount() {
+
+    axios.get('user').then(
+      res => {
+        this.setState({
+          user: res.data
+        })
+        console.log(res);
+
+      },
+      err => console.log(err)
     )
   }
   render() {
@@ -37,6 +60,8 @@ export default class LoginRegister extends Component {
     let error1 = "";
     let error2 = "";
     let error3 = "";
+    let error4 = "";
+    const isLoggedIn = this.state.user;
     if (this.state.message) {
       error = (
         <div className="alert-danger-text" role="alert">
@@ -62,6 +87,13 @@ export default class LoginRegister extends Component {
       error3 = (
         <div className="alert-danger-text" role="alert">
           {this.state.message3}
+        </div>
+      )
+    }
+    if (this.state.message4) {
+      error4 = (
+        <div className="alert-danger-text" role="alert">
+          {this.state.message4}
         </div>
       )
     }
@@ -102,27 +134,39 @@ export default class LoginRegister extends Component {
                         <Tab.Pane eventKey="register">
                           <div className="login-form-container">
                             <div className="login-register-form">
-                              <form onSubmit={this.handleSubmit}>
-                                <input
-                                  label='FirstName' name="firstname" onChange={e => this.firstname = e.target.value} placeholder='Enter firstname' type='text' required
-                                /> {error1}
-                                <input
-                                  label='LastName' name="lastname" onChange={e => this.lastname = e.target.value} placeholder='Enter lastname' type='text' required
-                                />{error2}
-                                <input
-                                  label='Email' name="email" onChange={e => this.email = e.target.value} placeholder='Enter Email' type='email' required
-                                /> {error}
-                                <input
-                                  label='Password' name="password" onChange={e => this.password = e.target.value} placeholder='Enter password' type='password' required
-                                />{error3}
+                              {isLoggedIn ?
+                                (
+                                  <div className="login-register-form mb-20 pb-20">
+                                    <h3 className=" mb-20 pb-20">You are logged in!</h3>
+
+                                    <Link className="UploadButton mt-40-b" to={process.env.PUBLIC_URL + "/home-fashion-three"}   >Ok</Link>
+
+                                    {/* onClick={() => { refreshPage()} */}
+                                  </div>
+                                )
+                                :
+                                (<form onSubmit={this.handleSubmit}>
+                                  {error4}
+                                  <input
+                                    label='FirstName' name="firstname" onChange={e => this.firstname = e.target.value} placeholder='Enter firstname' type='text' required
+                                  /> {error1}
+                                  <input
+                                    label='LastName' name="lastname" onChange={e => this.lastname = e.target.value} placeholder='Enter lastname' type='text' required
+                                  />{error2}
+                                  <input
+                                    label='Email' name="email" onChange={e => this.email = e.target.value} placeholder='Enter Email' type='email' required
+                                  /> {error}
+                                  <input
+                                    label='Password' name="password" onChange={e => this.password = e.target.value} placeholder='Enter password' type='password' required
+                                  />{error3}
 
 
-                                <div className="button-box">
-                                  <button type="submit">
-                                    <span>Register</span>
-                                  </button>
-                                </div>
-                              </form>
+                                  <div className="button-box">
+                                    <button type="submit" href='/login'>
+                                      <span>Register</span>
+                                    </button>
+                                  </div>
+                                </form>)}
                             </div>
                           </div>
                         </Tab.Pane>

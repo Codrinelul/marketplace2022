@@ -10,6 +10,7 @@ import { BreadcrumbsProvider } from "react-breadcrumbs-dynamic";
 // home pages
 
 const HomeFashionThree = lazy(() => import("./pages/home/HomeFashionThree"));
+const ProfilePage = lazy(() => import("./pages/home/ProfilePage"));
 
 // shop pages
 const ShopGridStandard = lazy(() => import("./pages/shop/ShopGridStandard"));
@@ -228,6 +229,11 @@ const App = (props) => {
                   path={process.env.PUBLIC_URL + "/topSellers"}
                   component={topSellers}
                 />
+                <Route
+                  path={process.env.PUBLIC_URL + "/ProfilePage"}
+                  component={ProfilePage}
+                />
+
 
 
                 {/* Static pages */}

@@ -1,5 +1,5 @@
 
-import React, { useEffect, Fragment, Component, lazy } from "react";
+import React, { useEffect, Fragment, Component } from "react";
 import MetaTags from "react-meta-tags";
 import Tab from "react-bootstrap/Tab";
 import Nav from "react-bootstrap/Nav";
@@ -59,7 +59,7 @@ export default class LoginSignIn extends Component {
     }
 
     render() {
-        const HomeFashionThree = lazy(() => import("../home/HomeFashionThree"));
+        // const HomeFashionThree = lazy(() => import("../home/HomeFashionThree"));
 
         let error = '';
         const isLoggedIn = this.state.user;
@@ -182,11 +182,11 @@ export default class LoginSignIn extends Component {
                                                         <div className="login-register-form">
                                                             {isLoggedIn ?
                                                                 (
-                                                                    <div className="login-register-form">
-                                                                        <h3>You are logged in!</h3>
-                                                                        <button className="UploadButton"  >
-                                                                            <Link to={process.env.PUBLIC_URL + "/"}   >Ok</Link>
-                                                                        </button>
+                                                                    <div className="login-register-form mb-20 pb-20">
+                                                                        <h3 className=" mb-20 pb-20">You are logged in!</h3>
+
+                                                                        <Link className="UploadButton mt-40-b" to={process.env.PUBLIC_URL + "/home-fashion-three"}   >Ok</Link>
+
                                                                         {/* onClick={() => { refreshPage()} */}
                                                                     </div>
                                                                 )

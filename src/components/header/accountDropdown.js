@@ -74,12 +74,17 @@ export default class AccountDropdown extends Component {
                     (<div className="account-dropdown">
                         <ul>
                             <li>
-                                <Link to={process.env.PUBLIC_URL + "/"} onClick={() => { localStorage.clear(); refreshPage(); }} >Logout</Link>
-                            </li>
-                            <li>
                                 <Link to={process.env.PUBLIC_URL + "/my-account"}>
                                     My account
                                 </Link>
+                            </li>
+                            <li>
+                                <Link to={process.env.PUBLIC_URL + "/ProfilePage"}>
+                                    Profile
+                                </Link>
+                            </li>
+                            <li>
+                                <Link to={process.env.PUBLIC_URL + "/"} onClick={() => { localStorage.clear(); refreshPage(); }} >Logout</Link>
                             </li>
                         </ul>
                     </div >)
@@ -87,7 +92,7 @@ export default class AccountDropdown extends Component {
                     (<div className="account-dropdown">
                         <ul>
                             <li>
-                                <Link to={process.env.PUBLIC_URL + "/login-register"}>Login</Link>
+                                <Link to={process.env.PUBLIC_URL + "/login"}>Login</Link>
                             </li>
                             <li>
                                 <Link to={process.env.PUBLIC_URL + "/login-register"}>
